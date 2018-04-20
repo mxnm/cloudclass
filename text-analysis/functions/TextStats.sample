@@ -2,51 +2,55 @@ using System.Linq;
 using System;
 using Microsoft.WindowsAzure.Storage;
 
-namespace text_analysis.Controllers
+
+public static TextInfoTableEntity Run(string myBlob, string id, TraceWriter log)
 {
-    public class TextStats {
-       public int WordCount
-        {
-            get;
-            set;
-        }
+    log.Info($"C# Blob trigger function Processed blob\n Name:{id} \n Text: {myBlob}");
+    
+    var stats = GetStats(myBlob);
 
-        public int UniqueWords
-        {
-            get;
-            set;
-        }
+    return new TextInfoTableEntity() {
+        RowKey = id,
+        PartitionKey = "text",
+        WordCount = stats.WordCount, 
+        UniqueWords = stats.UniqueWords,
+        Complexity = stats.Complexity
+    };
 
-        public int Complexity
-        {
-            get;
-            set;
-        }
-    }
+}
 
-    public static class TextAnalysis {
-        public static TextStats GetStats(string text) {
-            var words = text
-                .Replace("\r\n", " ")
-                .Replace(".", string.Empty)
-                .Replace("!", string.Empty)
-                .Replace(",", string.Empty)
-                .Replace("-", string.Empty)
-                .Replace(":", string.Empty)
-                .Split(" ");
+public class TextInfoTableEntity
+{
+    public string RowKey { get; set; }
+    public string PartitionKey { get; set; }
+    public int WordCount { get; set; }
+    public int UniqueWords { get; set; }
+    public int Complexity { get; set; }
+}
 
-            var wordCount = words.Count();
-            var uniqueWords = words.Distinct().Count();
-            var complexity = (int)(wordCount / 100) + (uniqueWords / 10);
+public static TextStats GetStats(string text) {
+    var words = text
+        .Replace("\r\n", " ")
+        .Replace(".", string.Empty)
+        .Replace("!", string.Empty)
+        .Replace(",", string.Empty)
+        .Replace("-", string.Empty)
+        .Replace(":", string.Empty)
+        .Split(' ');
 
-            var account2 = CloudStorageAccount.Parse(this.appSettings.Value.StorageConnectionString);
-            var client2 = account.CreateCloudTableClient();
-            var table2 = client2.GetTableReference("textinfo");
-            await table2.CreateIfNotExistsAsync();
+    var wordCount = words.Count();
+    var uniqueWords = words.Distinct().Count();
+    var complexity = (int)(wordCount / 100) + (uniqueWords / 10);
 
-            var operation = TableOperation.Insert(new TextInfoTableEntity(id) { UniqueWords = uniqueWords, WordCount = wordCount, Complexity = complexity });
-            await table2.ExecuteAsync(operation);
+    return new TextStats() {
+        WordCount = wordCount,
+        UniqueWords = uniqueWords,
+        Complexity = complexity
+    };
+}
 
-        }
-    }
+public class TextStats {
+    public int WordCount { get; set; }
+    public int UniqueWords { get; set; }
+    public int Complexity { get; set; }
 }

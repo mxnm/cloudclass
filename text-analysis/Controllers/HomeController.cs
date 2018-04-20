@@ -3,10 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Core;
-using Microsoft.WindowsAzure.Storage.Table;
-using System.Linq;
 using text_analysis.Models;
 using System;
 
