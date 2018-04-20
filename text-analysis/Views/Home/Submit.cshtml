@@ -1,0 +1,30 @@
+﻿@model text_analysis.Models.TextSubmissionModel
+
+@{
+    ViewData["Title"] = "Submit";
+}
+
+<h2>Submit your text</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Submit", "Home", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+                @Html.AntiForgeryToken();
+
+                <div class="form">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Content, new { @class = "control-label" })
+                        @Html.TextAreaFor(model => model.Content, new { @class = "form-control", rows = 8 })
+                        @Html.ValidationMessageFor(model => model.Content, null, new { @class = "text-danger" })
+                    </div>
+                    <p>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

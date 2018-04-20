@@ -1,0 +1,52 @@
+using System.Linq;
+using System;
+using Microsoft.WindowsAzure.Storage;
+
+namespace text_analysis.Controllers
+{
+    public class TextStats {
+       public int WordCount
+        {
+            get;
+            set;
+        }
+
+        public int UniqueWords
+        {
+            get;
+            set;
+        }
+
+        public int Complexity
+        {
+            get;
+            set;
+        }
+    }
+
+    public static class TextAnalysis {
+        public static TextStats GetStats(string text) {
+            var words = text
+                .Replace("\r\n", " ")
+                .Replace(".", string.Empty)
+                .Replace("!", string.Empty)
+                .Replace(",", string.Empty)
+                .Replace("-", string.Empty)
+                .Replace(":", string.Empty)
+                .Split(" ");
+
+            var wordCount = words.Count();
+            var uniqueWords = words.Distinct().Count();
+            var complexity = (int)(wordCount / 100) + (uniqueWords / 10);
+
+            var account2 = CloudStorageAccount.Parse(this.appSettings.Value.StorageConnectionString);
+            var client2 = account.CreateCloudTableClient();
+            var table2 = client2.GetTableReference("textinfo");
+            await table2.CreateIfNotExistsAsync();
+
+            var operation = TableOperation.Insert(new TextInfoTableEntity(id) { UniqueWords = uniqueWords, WordCount = wordCount, Complexity = complexity });
+            await table2.ExecuteAsync(operation);
+
+        }
+    }
+}

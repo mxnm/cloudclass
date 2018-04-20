@@ -1,0 +1,62 @@
+﻿body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.site-header {
+    line-height: 71px;
+    font-size: 26px;
+}
+
+.body-content {
+    margin-top: 10px;
+}
+
+.navbar-default {
+    background-color: transparent;
+    border: none;
+    border-radius: initial;
+    /*border-bottom: 1px solid #26528D;*/
+}
+
+    .navbar-default .navbar-nav > li > a {
+        color: #26528D;
+        font-weight: 700;
+    }
+
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+        color: #26528D;
+        background-color: transparent;
+        border-bottom: 1px solid #26528D;
+    }
+
+.jumbotron {
+    background-color: transparent;
+}
+
+.btn-default {
+    /*background-color: #26528D;*/
+}
+
+.btn-primary {
+    background-color: #fff;
+    color: #26528D;
+}
+
+    .btn-primary:hover {
+        background-color: #26528D;
+        color: #fff;
+    }
+
+.text {
+    position: relative;
+    margin-bottom: 30px;
+    /*border-bottom: 2px solid #26528D;*/
+}

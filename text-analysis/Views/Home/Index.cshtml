@@ -1,0 +1,19 @@
+﻿@model IEnumerable<text_analysis.Models.TextInfo>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h2>List of Texts</h2>
+
+<div class="text-list container">
+    @foreach (var textInfo in Model)
+    {
+        <div class="row text">
+           <div>Id: <a href="@textInfo.LinkToText">@textInfo.TextId</a></div>
+           <div>Words: @textInfo.WordCount</div>
+           <div>Unique words: @textInfo.UniqueWords</div>
+           <div>Complexity: @textInfo.Complexity</div>
+        </div>
+    }
+</div>
