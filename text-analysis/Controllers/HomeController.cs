@@ -3,8 +3,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
 using text_analysis.Models;
 using System;
+using System.Linq;
 
 namespace text_analysis.Controllers
 {
