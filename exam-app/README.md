@@ -1,7 +1,7 @@
 # Web Application Deployment Task
 This application is part of the exam for Cloud Computing with Microsoft Azure.
 
-To complete the task you must deploy the application and configure the following storage connection string from the Azure Portal.
+To complete the task you must deploy the "exam-app" application and configure the following storage connection string from the Azure Portal.
 
 `DefaultEndpointsProtocol=https;AccountName=examstorageaubg;AccountKey=3EKvPoTZYVJ22uW1i2EkM3a38fhcWz8z4r7gptlWyQdIyp0xCHoW8jgwdeJX/z9Bp4c6unRVjGCJFcb1PAGu6Q==;EndpointSuffix=core.windows.net`
 
